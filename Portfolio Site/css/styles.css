@@ -98,7 +98,7 @@ button:hover, button:focus {
 }
 .page-footer {
   clear: both;
-  display: column;
+  display: block;
   text-align: center;
 }
 * {

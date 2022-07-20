@@ -1,35 +1,51 @@
 let pokemonRepository = (function () {
-  let pokemonList = [
+  let repository = [
 //My 6 Starters always when playing pokemon growing up
-  {name:'Charizard', height:5.6, type:['fire', 'flying']},
-  {name:'Alakazam', height:4.9, type:['psychic']},
-  {name:'Dragonite', height:7.2, type:['dragon', 'flying']},
-  {name:'Scyther', height:4.9, type:['bug', 'flying']},
-  {name:'Gyarados', height:21.3, type:['water', 'flying']},
-  {name:'Jolteon', height:2.6, type:['electric']},
+  {name:"Charizard", height:5.6, types:["fire", "flying"],},
+  {name:"Alakazam", height:4.9, types:["psychic"],},
+  {name:"Dragonite", height:7.2, types:["dragon", "flying"],},
+  {name:"Scyther", height:4.9, types:["bug", "flying"],},
+  {name:"Gyarados", height:21.3, types:["water", "flying"],},
+  {name:"Jolteon", height:2.6, types:["electric"],},
 //Honorable mentions:gengar, lapras, articuno, zapdos,
 //mewtwo, raichu, pidgeot.
+
 ];
-	function getAll() {
-    	return pokemonList;
-   }
+	function add(pokemon) {
+    if (
+      typeof pokemon === "object" &&
+      "name" in pokemon &&
+      "height" in pokemon &&
+      "types" in pokemon
+    ) {
+      repository.push(pokemon);
+    } else {
+      console.log("pokemon is not correct");
+    }
+  }
+  function getAll() {
+    return repository;
+  }
+function addListItem(pokemon){
+    let pokemonList = document.querySelector(".pokemon-list");
+    let listpokemon = document.createElement("li");
+    let button = document.createElement("button");
+    button.innerText = pokemon.name;
+    button.classList.add("button-class");
+    listpokemon.appendChild(button);
+    pokemonList.appendChild(listpokemon);
+    button.addEventListener("click", function() {
+      showDetails(pokemon);
+  });
+    return {
+        add: add,
+        getAll: getAll,
+        addListItem: addListItem
+      };
+  }
 
-  function add(pokemon) {
-      pokemonList.push(pokemon);
-   }
+console.log(pokemonRepository.getAll());
 
-//working on the for part. Feel confused about it.
-// for (let i=0; i < pokemonList.length; i++){
-//   if (pokemonList[i].height <8 && pokemonList[i].height >0){
-//     document.write(pokemonList[i].height + " is a short Pokemon");
-//   }else if pokemonList[i].height >8){
-//     document.write(pokemonList[i].height + " is a tall Pokemon");
-//   }
-// }
-//
-// pokemonList.forEach(function() {
-//   console.log(.name + ' is ' + .height ' which is a short or tall pokemon.');
-//   });
-
-pokemonList.forEach( name => console.log(name) );
-})();
+pokemonRepository.getAll().forEach(function (pokemon) {
+  pokemonRepository.addListItem(pokemon);
+});
